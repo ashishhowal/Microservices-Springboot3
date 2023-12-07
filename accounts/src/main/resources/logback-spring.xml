@@ -1,0 +1,34 @@
+<configuration>
+    <springProperty scope="context" name="application" source="spring.application.name" />
+    <springProperty scope="context" name="environment" source="spring.environment" />
+
+    <springProfile name="default | green | blue">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
+                </provider>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="local">
+        <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
+                </provider>
+            </encoder>
+        </appender>
+
+        <logger name="io.netty" level="INFO" />
+        <logger name="org.springframework.beans" level="INFO" />
+        <logger name="org.springframework.boot.devtools" level="INFO" />
+
+        <root level="INFO">
+            <appender-ref ref="jsonConsoleAppender"/>
+        </root>
+    </springProfile>
+</configuration>
