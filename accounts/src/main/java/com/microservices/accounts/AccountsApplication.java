@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-//@ComponentScans({ @ComponentScan("com.eazybytes.accounts.controller") })
-//@EnableJpaRepositories("com.eazybytes.accounts.repository")
-//@EntityScan("com.eazybytes.accounts.entity")
+//@ComponentScans({ @ComponentScan("com.microservices.accounts.controller") })
+//@EnableJpaRepositories("com.microservices.accounts.repository")
+//@EntityScan("com.microservices.accounts.entity")
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 @OpenAPIDefinition(
 		info = @Info(
