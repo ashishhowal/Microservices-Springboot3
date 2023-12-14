@@ -19,14 +19,14 @@ import lombok.NoArgsConstructor;
 public class CustomerDTO {
 
     @Schema(
-            description = "Name of the customer", example = "Eazy Bytes"
+            description = "Name of the customer", example = "Ashish Howal"
     )
     @NotEmpty(message ="Name cannot be null or empty")
     @Size(min = 3, max =30, message = "Length of the customer name should be between 3 and 30")
     private String name;
 
     @Schema(
-            description = "Email address of the customer", example = "tutor@eazybytes.com"
+            description = "Email address of the customer", example = "ash.howal@gmail.com"
     )
     @NotEmpty(message = "Email cannot be null or empty")
     @Email(message = "Email provided is not a valid email")
