@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
 @Validated
+@Slf4j
 public class AccountsController {
 
     private IAccountsService iAccountsService;
@@ -55,6 +57,7 @@ public class AccountsController {
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDTO> createAccount(@Valid @RequestBody CustomerDTO customerDTO) {
+        log.info("CreateAccount Request Received => {}", customerDTO);
         iAccountsService.createAccount(customerDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -85,6 +88,7 @@ public class AccountsController {
                                                            @Pattern(regexp = "^04[0-9]{8}$",
                                                                    message = "Number should be a valid Australian Number starting with 04")
                                                            String mobileNumber) {
+        log.info("FetchAccount Details request received with mobileNumber => {}", mobileNumber);
         CustomerDTO customerDTO = iAccountsService.fetchAccount(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
     }
@@ -113,6 +117,7 @@ public class AccountsController {
     )
     @PutMapping(value = "/update")
     public ResponseEntity<ResponseDTO> updateAccountDetails(@Valid @RequestBody CustomerDTO customerDTO) {
+        log.info("Update Account details request received, => {}", customerDTO);
         boolean isUpdated = iAccountsService.updateAccount(customerDTO);
         if (isUpdated) {
             return ResponseEntity.status(HttpStatus.OK)
@@ -152,6 +157,7 @@ public class AccountsController {
                                                             @Pattern(regexp = "^04[0-9]{8}$",
                                                                     message = "Number should be a valid Australian Number starting with 04")
                                                             String mobileNumber) {
+        log.info("Delete account request received with mobileNumber => {}", mobileNumber);
         boolean isDeleted = iAccountsService.deleteAccount(mobileNumber);
         if (isDeleted) {
             return ResponseEntity.status(HttpStatus.OK)
